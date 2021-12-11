@@ -1,6 +1,11 @@
 // Author: Bora Semiz
 // Title: Maze
 
+/*
+	In this shader, I demonstrate how to create a maze like
+	image using some randomness.
+*/
+
 #ifdef GL_ES
 precision mediump float;
 #endif
@@ -25,11 +30,13 @@ float random(vec2 st) {
 }
 
 float truchetPattern(vec2 st, float index) {
-    if (index > 0.5) {
-        return abs(st.y - st.x);
-    } else {
-        return abs(st.y + st.x - 1.0);
-    }
+    float choice = step(0.5, index);
+    
+    return mix(
+    	abs(st.y + st.x - 1.0),
+        abs(st.y - st.x),
+        choice
+    );
 }
 
 void main() {
